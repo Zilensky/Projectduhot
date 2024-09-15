@@ -199,6 +199,6 @@ df_comparisons = df[['Symbol', 'Year', 'Current Ratio', 'Quick Ratio', 'Net Prof
                      'Debt Ratio', 'Asset Turnover Ratio', 'Inventory Turnover Ratio', 'EPS']]
 
 # Convert the new DataFrame to a CSV file
-df_comparisons.to_csv('financial_comparisons.csv', index=False)
+#df_comparisons.to_csv('financial_comparisons.csv', index=False)
 
 print("CSV file created successfully.")

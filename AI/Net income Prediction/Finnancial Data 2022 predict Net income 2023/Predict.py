@@ -68,7 +68,7 @@ def print_diffrences(df_predicted):
 
 def combine_and_predict(file_path, excel_file, output_file):
     # Read and process data
-    df = pd.read_csv(file_path)
+    df = pd.read_excel(excel_file)
     df_excel = pd.read_excel(excel_file)
 
     # Filter and merge data
