@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, HuberRegressor
 from sklearn.metrics import mean_squared_error, r2_score
@@ -18,7 +19,7 @@ def filter_outliers(df):
     numeric_cols = df.select_dtypes(include=[np.number])
 
     # Calculate Q1, Q3, and IQR for outlier filtering
-    Q1 = numeric_cols.quantile(0.035)
+    Q1 = numeric_cols.quantile(0.05)
     Q3 = numeric_cols.quantile(0.8)
     IQR = Q3 - Q1
 
@@ -35,7 +36,7 @@ def predict_net_income(df):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Create and train the regression model
-    model = HuberRegressor()
+    model = RandomForestRegressor()
     model.fit(X_train, y_train)
 
     # Predict on the test set
@@ -47,7 +48,7 @@ def predict_net_income(df):
 
     print(f'Mean Squared Error: {mse}')
     print(f'R² Score: {r2 * 100:.2f}%')
-    within_5_percent = np.abs((y_pred - y_test) / y_test) <= 0.5
+    within_5_percent = np.abs((y_pred - y_test) / y_test) <= 0.05
     accuracy_within_5_percent = np.mean(within_5_percent) * 100
     print(f'Accuracy within 5%: {accuracy_within_5_percent:.2f}%')
     # Predict net income for the entire dataset

@@ -1,114 +1,122 @@
 import pandas as pd
 import numpy as np
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression, HuberRegressor
+from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
-def clean_dataframe(df):
-    # Replace inf and -inf with large and small finite numbers respectively
-    df.replace([np.inf, -np.inf], np.nan, inplace=True)
-    # Fill NaNs with zeros
+
+def combine_data_from_same_file(file_path):
+    # Load the data
+    df = pd.read_excel(file_path)
+
+    # Filter data for 2022
+    df_2022 = df[df['Year'] == 2022]
+
+    # Filter data for 2023 and keep only 'Symbol' and 'Net Income'
+    df_2023 = df[df['Year'] == 2023][['Symbol', 'Net Income']]
+
+    # Merge 2022 data with 2023 net income
+    df_combined = pd.merge(df_2022, df_2023, on='Symbol', how='left', suffixes=('_2022', '_2023'))
+
+    return df_combined
+
+
+def preprocess_data(df):
+    # Fill missing values with 0
     df.fillna(0, inplace=True)
+
+    # Drop rows where Net Income for 2023 is 0 (if these rows have no relevant data)
+    df = df[df['Net Income_2023'] != 0]
+
     return df
 
 
-def filter_outliers(df):
-    # Select only numeric columns
-    numeric_cols = df.select_dtypes(include=[np.number])
+def train_linear_regression_model(df):
+    # Prepare feature and target variables
+    X = df.drop(columns=['Symbol', 'Year', 'Net Income_2023'])
+    y = df['Net Income_2023']
 
-    # Calculate Q1, Q3, and IQR for outlier filtering
-    Q1 = numeric_cols.quantile(0.035)
-    Q3 = numeric_cols.quantile(0.8)
-    IQR = Q3 - Q1
-
-    # Filter out outliers in the numeric columns
-    df_filtered = df[~((numeric_cols < (Q1 - 1.5 * IQR)) | (numeric_cols > (Q3 + 1.5 * IQR))).any(axis=1)]
-    return df_filtered
-def predict_net_income(df):
-
-    # Separate features and target variable
-    X = df.drop(['Symbol', 'Net Income'], axis=1)
-    y = df['Net Income']
-
-    # Split the data into training and testing sets (80% train, 20% test)
+    # Split data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # Create and train the regression model
-    model = HuberRegressor()
+    # Initialize and train the model
+    model = LinearRegression()
     model.fit(X_train, y_train)
 
-    # Predict on the test set
+    # Make predictions on the test set
     y_pred = model.predict(X_test)
 
     # Evaluate the model
     mse = mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
 
-    print(f'Mean Squared Error: {mse}')
-    print(f'R² Score: {r2 * 100:.2f}%')
-    within_5_percent = np.abs((y_pred - y_test) / y_test) <= 0.5
-    accuracy_within_5_percent = np.mean(within_5_percent) * 100
-    print(f'Accuracy within 5%: {accuracy_within_5_percent:.2f}%')
-    # Predict net income for the entire dataset
-    df['Predicted Net Income'] = model.predict(X)
-
-    return df
-
-def print_diffrences(df_predicted):
-    df_predicted['Difference'] = abs(df_predicted['Net Income'] - df_predicted['Predicted Net Income'])
-
-    # Get the top 10 rows with the largest difference
-    top_10_gap = df_predicted[['Symbol', 'Net Income', 'Predicted Net Income', 'Difference']].nlargest(10, 'Difference')
-
-    # Print the top 10
-    print("Top 10 symbols with the largest gap between predicted and real Net Income:")
-    print(top_10_gap)
+    return model, mse, r2, X_test, y_test, y_pred
 
 
-def combine_and_predict(file_path, excel_file, output_file):
-    # Read and process data
-    df = pd.read_excel(excel_file)
-    df_excel = pd.read_excel(excel_file)
+def calculate_accuracy_within_std(y_test, y_pred, std_threshold=0.1):
+    # Calculate the standard deviation of the actual Net Income
+    std_actual = np.std(y_test)
 
-    # Filter and merge data
-    df_2022 = df[df['Year'] == 2021].drop(['Year'], axis=1)
-    df_2023 = df_excel[df_excel['Year'] == 2022][['Symbol', 'Net Income']]
-    df_combined = pd.merge(df_2022, df_2023, on='Symbol', how='left', suffixes=('', '_2022'))
+    # Calculate the differences
+    differences = np.abs(y_pred - y_test)
 
-    # Clean the data
-    df_combined = clean_dataframe(df_combined)
-    df_combined=filter_outliers(df_combined)
-    # Predict Net Income
-    df_predicted = predict_net_income(df_combined)
-    plot_percentage_gap(df_predicted)
-    # Save the DataFrame with predictions
-    #df_predicted.to_csv(output_file, index=False)
+    # Calculate percentage differences
+    percentage_differences = differences / std_actual
 
-def plot_percentage_gap(df_predicted):
-    # Calculate the percentage change between predicted and actual net income
-    df_predicted['Percentage Gap'] = ((df_predicted['Predicted Net Income'] - df_predicted['Net Income']) / df_predicted['Net Income']) * 100
+    # Check how many predictions are within the standard deviation threshold
+    accurate_predictions = np.sum(percentage_differences <= std_threshold)
+    total_predictions = len(y_test)
 
-    # Sort by symbol for better visualization
-    df_sorted = df_predicted.sort_values(by='Symbol')
+    accuracy = accurate_predictions / total_predictions * 100
 
-    # Create the plot
+    return percentage_differences, accuracy
+
+
+def plot_percentage_differences(y_test, y_pred):
+    # Calculate percentage differences
+    percentage_differences = ((y_pred - y_test) / y_test) * 100
+
+    # Create a DataFrame for plotting
+    df_plot = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred, 'Percentage Difference': percentage_differences})
+
+    # Plot
     plt.figure(figsize=(12, 6))
-
-    # Plot the percentage gap
-    plt.bar(df_sorted['Symbol'], df_sorted['Percentage Gap'], color='blue')
-
-    # Add labels and title
-    plt.xlabel('Company Symbols')
-    plt.ylabel('Percentage Gap (%)')
-    plt.title('Percentage Gap Between Predicted and Actual Net Income by Company')
-    plt.xticks(rotation=90, fontsize=8)  # Rotate company symbols for better readability
-
-    # Show the plot
-    plt.tight_layout()
+    plt.bar(df_plot.index, df_plot['Percentage Difference'], color='skyblue')
+    plt.xlabel('Index')
+    plt.ylabel('Percentage Difference (%)')
+    plt.title('Percentage Difference between Actual and Predicted Net Income for 2023')
+    plt.axhline(0, color='gray', linestyle='--')
     plt.show()
+
+
+def plot_distribution_of_percentage_differences(percentage_differences, std_threshold):
+    # Plot histogram of percentage differences
+    plt.figure(figsize=(12, 6))
+    plt.hist(percentage_differences * 100, bins=50, color='skyblue', edgecolor='black')
+    plt.axvline(std_threshold * 100, color='red', linestyle='--', label=f'STD Threshold ({std_threshold * 100}%)')
+    plt.xlabel('Percentage Difference (%)')
+    plt.ylabel('Frequency')
+    plt.title('Distribution of Percentage Differences')
+    plt.legend()
+    plt.show()
+
+
 # Usage
-file_path = 'financial_comparisons.csv'  # Your file with 2022 financial data
-excel_file = 'combined_financial_data_all_stocks.xlsx'  # Your file with 2023 data
-output_file = 'financial_predictions_with_regression.csv'  # Output file
-combine_and_predict(file_path, excel_file, output_file)
+file_path = 'combined_financial_data_all_stocks.xlsx'  # Your file with data
+df_combined = combine_data_from_same_file(file_path)
+df_preprocessed = preprocess_data(df_combined)
+model, mse, r2, X_test, y_test, y_pred = train_linear_regression_model(df_preprocessed)
+
+print(f"Mean Squared Error: {mse}")
+print(f"R^2 Score: {r2}")
+
+# Calculate and print accuracy within std deviation threshold
+percentage_differences, accuracy = calculate_accuracy_within_std(y_test, y_pred, std_threshold=1)
+print(f"Accuracy within ±0.1 standard deviations: {accuracy:.2f}%")
+
+# Plot percentage differences
+plot_percentage_differences(y_test, y_pred)
+
+# Plot distribution of percentage differences
+plot_distribution_of_percentage_differences(percentage_differences, std_threshold=0)
