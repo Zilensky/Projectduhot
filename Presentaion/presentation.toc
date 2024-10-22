@@ -1,8 +1,10 @@
-\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
-\beamer@sectionintoc {2}{Data}{3}{0}{2}
-\beamer@sectionintoc {3}{Analysis}{4}{0}{3}
-\beamer@sectionintoc {4}{Classifications}{5}{0}{4}
-\beamer@sectionintoc {5}{Visualizations}{6}{0}{5}
-\beamer@sectionintoc {6}{Anomalies}{7}{0}{6}
-\beamer@sectionintoc {7}{Prediction}{8}{0}{7}
-\beamer@sectionintoc {8}{Conclusions}{9}{0}{8}
+\beamer@sectionintoc {1}{Company Name}{1}{0}{1}
+\beamer@sectionintoc {2}{Introduction}{2}{0}{2}
+\beamer@sectionintoc {3}{Data}{3}{0}{3}
+\beamer@sectionintoc {4}{Analysis}{4}{0}{4}
+\beamer@sectionintoc {5}{Classifications}{5}{0}{5}
+\beamer@sectionintoc {6}{Financial Ratios}{6}{0}{6}
+\beamer@sectionintoc {7}{Visualizations}{7}{0}{7}
+\beamer@sectionintoc {8}{Anomalies}{8}{0}{8}
+\beamer@sectionintoc {9}{Prediction}{9}{0}{9}
+\beamer@sectionintoc {10}{Conclusions}{10}{0}{10}

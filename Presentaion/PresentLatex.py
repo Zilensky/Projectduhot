@@ -1,8 +1,11 @@
 import subprocess
 
 import matplotlib.pyplot as plt
-from pylatex import Document, Section, Command, Figure
+import yfinance as yf
+from pylatex import Document, Section, Command, Figure, Package
 from pylatex.utils import NoEscape
+
+from Anlysis.Finnancial_Ratios.scraperyahoo import calc_Ratios_with_growth
 
 
 def generate_line_chart():
@@ -24,18 +27,51 @@ def generate_line_chart():
     plt.close()
 
 
-def create_presentation():
+def create_presentation(ratios):
     # Create a beamer document for the presentation
     doc = Document(documentclass=NoEscape("beamer"))
 
     # Title page
+    doc.packages.append(Package('graphicx'))
+    doc.packages.append(Package('xcolor'))  # Package for color
+    doc.packages.append(Package('tcolorbox'))
+
     company_name = "Yair company"
-    doc.preamble.append(Command('title', company_name))
+
+    # Add title, author, and date
+    doc.preamble.append(Command('title', company_name))  # Title for the presentation
     doc.preamble.append(Command('author', 'Your Name'))
     doc.preamble.append(Command('date', NoEscape(r'\today')))
 
-    # Begin the document and add the title page
-    doc.append(NoEscape(r'\maketitle'))
+    # Begin the document
+
+
+    # Create a slide for the title card with an orange background and white text
+    with doc.create(Section('Company Name')):
+
+        doc.append(NoEscape(r'''
+         \begin{frame}{ Open-SQL Framework - Results}
+    \begin{itemize}
+        \item \textbf{Tested Models:}
+        \begin{itemize}
+            \item Llama2-7B and Code-Llama-7B
+            \item Fine-tuned using proposed COT (SFTI-COT-SK-FULL)
+            \item Zero-Shot learning
+        \end{itemize}
+
+   
+        \item \textbf{Performance improvement:}
+        \begin{itemize}
+            \item \textbf{Llama2-7B}  from \(2.54\%\) to \(41.04\%\)
+            \item \textbf{Code Llama-7B}  from \(14.54\%\) to \(48.24\%\)
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+        '''))
+
+
+    # Make title slide
+
 
     # Section 1: Introduction (1 page)
     with doc.create(Section('Introduction')):
@@ -69,6 +105,20 @@ def create_presentation():
         doc.append(NoEscape(r'\begin{frame}'))
         doc.append(NoEscape(r'\frametitle{Classifications}'))
         doc.append('This slide presents the classifications based on the analysis.')
+        doc.append(NoEscape(r'\end{frame}'))
+
+    # Section 4: ratios
+    with doc.create(Section('Financial Ratios')):
+        doc.append(NoEscape(r'\begin{frame}'))
+        doc.append(NoEscape(r'\frametitle{Financial Ratios}'))
+        doc.append('This slide presents the calculated financial ratios:')
+
+        # Add the ratios as a list in LaTeX format
+        doc.append(NoEscape(r'\begin{itemize}'))
+        for key, value in ratios.items():
+            doc.append(NoEscape(fr'\item \textbf{{{key.replace("_", " ").title()}}}: {value}'))
+        doc.append(NoEscape(r'\end{itemize}'))
+
         doc.append(NoEscape(r'\end{frame}'))
 
     # Section 5: Visualizations (Simple Line Graph)
@@ -116,6 +166,8 @@ def create_presentation():
 
 # Generate the line chart image
 generate_line_chart()
-
+symbol='AURA.TA'
+stock = yf.Ticker(symbol)
+ratios=calc_Ratios_with_growth(stock,symbol)
 # Create the presentation
-create_presentation()
+create_presentation(ratios)

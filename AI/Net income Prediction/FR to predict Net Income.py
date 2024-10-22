@@ -19,7 +19,7 @@ def filter_outliers(df):
     numeric_cols = df.select_dtypes(include=[np.number])
 
     # Calculate Q1, Q3, and IQR for outlier filtering
-    Q1 = numeric_cols.quantile(0.05)
+    Q1 = numeric_cols.quantile(0.1)
     Q3 = numeric_cols.quantile(0.8)
     IQR = Q3 - Q1
 

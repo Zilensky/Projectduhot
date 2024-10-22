@@ -1,8 +1,10 @@
+\beamer@slide {sec:CompanyName}{1}
 \beamer@slide {sec:Introduction}{2}
 \beamer@slide {sec:Data}{3}
 \beamer@slide {sec:Analysis}{4}
 \beamer@slide {sec:Classifications}{5}
-\beamer@slide {sec:Visualizations}{6}
-\beamer@slide {sec:Anomalies}{7}
-\beamer@slide {sec:Prediction}{8}
-\beamer@slide {sec:Conclusions}{9}
+\beamer@slide {sec:FinancialRatios}{6}
+\beamer@slide {sec:Visualizations}{7}
+\beamer@slide {sec:Anomalies}{8}
+\beamer@slide {sec:Prediction}{9}
+\beamer@slide {sec:Conclusions}{10}
