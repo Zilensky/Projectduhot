@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.19)  17 NOV 2024 13:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.9.19)  2 JAN 2025 14:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1049,7 +1049,7 @@ Dictionary: translator-numbers-dictionary, Language: English
 lish.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 ) (presentation.nav)
-<company_logo.jpg, id=12, 80.3pt x 80.3pt>
+<company_logo.jpg, id=48, 80.3pt x 80.3pt>
 File: company_logo.jpg Graphic file (type jpg)
 <use company_logo.jpg>
 Package pdftex.def Info: company_logo.jpg  used on input line 34.
@@ -1059,7 +1059,7 @@ Package pdftex.def Info: company_logo.jpg  used on input line 34.
 {C:/Users/yairb/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/yair
 b/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc} <./company_logo.j
 pg>]
-<intro.png, id=45, 803.0pt x 602.25pt>
+<intro.png, id=80, 803.0pt x 602.25pt>
 File: intro.png Graphic file (type png)
 <use intro.png>
 Package pdftex.def Info: intro.png  used on input line 49.
@@ -1138,245 +1138,31 @@ Overfull \hbox (11.93591pt too wide) in paragraph at lines 136--136
 
 [8
 
-]
-presentation.tex:169: Extra alignment tab has been changed to \cr.
-<recently read> \endtemplate 
-                             
-l.169 \end{frame}
-                 
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
-
-presentation.tex:169: Misplaced \noalign.
-\bottomrule ->\noalign 
-                       {\ifnum 0=`}\fi \@aboverulesep =\aboverulesep \global...
-l.169 \end{frame}
-                 
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-presentation.tex:169: Missing } inserted.
-<inserted text> 
-                }
-l.169 \end{frame}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-presentation.tex:169: Missing } inserted.
-<inserted text> 
-                }
-l.169 \end{frame}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-presentation.tex:169: Missing } inserted.
-<inserted text> 
-                }
-l.169 \end{frame}
-                 
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-presentation.tex:169: Missing \cr inserted.
-<inserted text> 
-                \cr 
-l.169 \end{frame}
-                 
-I'm guessing that you meant to end an alignment here.
-
-presentation.tex:169: Missing { inserted.
-<inserted text> 
-                {
-l.169 \end{frame}
-                 
-I've put in what seems to be necessary to fix
-the current column of the current alignment.
-Try to go on, since this might almost work.
-
-presentation.tex:169: Undefined control sequence.
-\@BTrule ...\doublerulesep \fi \fi \fi \@BTswitch 
-                                                  
-l.169 \end{frame}
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-presentation.tex:169: Misplaced \crcr.
-<recently read> \crcr 
-                      
-l.169 \end{frame}
-                 
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-presentation.tex:169: Extra }, or forgotten $.
-\endtabular ->\crcr \egroup \egroup 
-                                    $\egroup 
-l.169 \end{frame}
-                 
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-Overfull \hbox (274.41544pt too wide) in paragraph at lines 169--169
- [] 
- []
-
-[9
+] [9
 
 ]
-presentation.tex:184: Extra alignment tab has been changed to \cr.
-<recently read> \endtemplate 
-                             
-l.184 \textbf{Selling And Marketing Expense} &
-                                               1.83% & 2.30% & 1.26% & 1.42% \\
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
-
-presentation.tex:190: Misplaced \noalign.
-\bottomrule ->\noalign 
-                       {\ifnum 0=`}\fi \@aboverulesep =\aboverulesep \global...
-l.190     \bottomrule
-                     
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-presentation.tex:191: Missing } inserted.
-<inserted text> 
-                }
-l.191     \end
-              {tabular}
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-presentation.tex:191: Missing } inserted.
-<inserted text> 
-                }
-l.191     \end
-              {tabular}
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-presentation.tex:191: Missing } inserted.
-<inserted text> 
-                }
-l.191     \end
-              {tabular}
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-presentation.tex:191: Missing \cr inserted.
-<inserted text> 
-                \cr 
-l.191     \end
-              {tabular}
-I'm guessing that you meant to end an alignment here.
-
-presentation.tex:191: Missing { inserted.
-<inserted text> 
-                {
-l.191     \end
-              {tabular}
-I've put in what seems to be necessary to fix
-the current column of the current alignment.
-Try to go on, since this might almost work.
-
-presentation.tex:191: Undefined control sequence.
-\@BTrule ...\doublerulesep \fi \fi \fi \@BTswitch 
-                                                  
-l.191     \end
-              {tabular}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-presentation.tex:191: Misplaced \crcr.
-<recently read> \crcr 
-                      
-l.191     \end{tabular}
-                       
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-presentation.tex:191: Extra }, or forgotten $.
-\endtabular ->\crcr \egroup \egroup 
-                                    $\egroup 
-l.191     \end{tabular}
-                       
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-Overfull \hbox (274.41544pt too wide) in paragraph at lines 174--192
- [] 
- []
-
-<Ratios_Anlysis.png, id=262, 1204.5pt x 1204.5pt>
+<Ratios_Anlysis.png, id=292, 1204.5pt x 1204.5pt>
 File: Ratios_Anlysis.png Graphic file (type png)
 <use Ratios_Anlysis.png>
-Package pdftex.def Info: Ratios_Anlysis.png  used on input line 209.
+Package pdftex.def Info: Ratios_Anlysis.png  used on input line 184.
 (pdftex.def)             Requested size: 227.62204pt x 227.60759pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [10
 
-]
-[11 <./Ratios_Anlysis.png (PNG copy)>]
-<Directorion.png, id=313, 1204.5pt x 1204.5pt>
+ <./Ratios_Anlysis.png (PNG copy)>]
+<Directorion.png, id=319, 1204.5pt x 1204.5pt>
 File: Directorion.png Graphic file (type png)
 <use Directorion.png>
-Package pdftex.def Info: Directorion.png  used on input line 224.
+Package pdftex.def Info: Directorion.png  used on input line 199.
 (pdftex.def)             Requested size: 227.62204pt x 227.60759pt.
- [12
+ [11
 
  <./Directorion.png (PNG copy)>]
-<valuation_comparison.png, id=341, 722.7pt x 433.62pt>
+<valuation_comparison.png, id=345, 722.7pt x 433.62pt>
 File: valuation_comparison.png Graphic file (type png)
 <use valuation_comparison.png>
-Package pdftex.def Info: valuation_comparison.png  used on input line 239.
+Package pdftex.def Info: valuation_comparison.png  used on input line 214.
 (pdftex.def)             Requested size: 227.62204pt x 136.57117pt.
-
-[13
+ [12
 
  <./valuation_comparison.png>]
 \tf@nav=\write6
@@ -1397,17 +1183,13 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-
-
-Package lastpage Warning: Rerun to get the references right on input line 242.
-
+(rerunfilecheck)             Checksum: F28E99FE07DE059CD17723B44243CD97;944.
  ) 
 Here is how much of TeX's memory you used:
- 24541 strings out of 474486
- 489723 string characters out of 5743755
+ 24566 strings out of 474486
+ 490064 string characters out of 5743755
  1939542 words of memory out of 5000000
- 46261 multiletter control sequences out of 15000+600000
+ 46288 multiletter control sequences out of 15000+600000
  610996 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,14n,123p,414b,559s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1418,9 +1200,9 @@ b><C:/Users/yairb/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss8.pfb
 fb><C:/Users/yairb/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/sy
 mbols/msam10.pfb>
 Output written on C:/Users\yairb\PycharmProjects\Projectduhot\out\presentation.
-pdf (13 pages, 475224 bytes).
+pdf (12 pages, 474443 bytes).
 PDF statistics:
- 407 PDF objects out of 1000 (max. 8388607)
- 47 named destinations out of 1000 (max. 500000)
- 68 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 409 PDF objects out of 1000 (max. 8388607)
+ 45 named destinations out of 1000 (max. 500000)
+ 140 words of extra memory for PDF output out of 10000 (max. 10000000)
 
