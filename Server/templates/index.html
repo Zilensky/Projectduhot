@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Reports Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-image: url('../static/img.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #343a40;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center mt-4">
+        <div style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); display: inline-block; margin-bottom: 30px;">
+            <h1 class="mb-4" style="margin: 0; text-align: center;">Financial Reports Analysis</h1>
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <input type="text" name="symbol" class="form-control" placeholder="Enter Company Symbol" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="pdf_file" class="form-control"  placeholder="Copy the path to the financial statement" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Presentation</button>
+        </form>
+    </div>
+</body>
+</html>

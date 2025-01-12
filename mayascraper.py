@@ -19,14 +19,14 @@ driver = webdriver.Chrome(service=Service(), options=chrome_options)
 
 # Navigate to the financial reports page
 url = 'https://maya.tase.co.il/reports/finance'
-"""driver.get(url)
+driver.get(url)
 
 # Wait for the page to load completely
 import time
-time.sleep(5)"""
+time.sleep(5)
 
-"""# Find all the 'a' tags that contain the links to the reports
-report_links = driver.find_elements(By.CSS_SELECTOR, "a.ng-isolate-scope")
+# Find all the 'a' tags that contain the links to the reports
+'''report_links = driver.find_elements(By.CSS_SELECTOR, "a.ng-isolate-scope")
 pdf_links = []
 pattern = re.compile(r'.*/2/\d+$')
 # Extract and print the href attributes of each link
@@ -39,8 +39,8 @@ for link in report_links:
             pdf_links.append(href)
 # Remove duplicates
 pdf_links = list(set(pdf_links))
-print(pdf_links)
-"""
+print(pdf_links)'''
+
 pdf_links = [
     "373", "1829", "1390", "2442", "1461", "444", "1397", "675", "297", "182",
     "1063", "1135", "1682", "1671", "1473", "2134", "2280", "1393", "1001", "1287",
@@ -106,57 +106,39 @@ pdf_links = [
     "258", "1609", "1901", "796", "1460", "1876", "1102", "1289", "1689", "1710",
     "290", "1457", "2076"
 ]
-
-"""for pdf_link in pdf_links:
+import time
+def download_pdf(pdf_link):
     # Navigate to the PDF link
     pdf_link = fr"https://maya.tase.co.il/company/{pdf_link}?view=finance"
 
     driver.get(pdf_link)
 
-    # Wait for the page to load the PDF
+        # Wait for the page to load the PDF
     time.sleep(5)  # Adjust this based on your internet speed
 
-    # Locate the save button and click it
+        # Locate the save button and click it
     try:
-        save_button = driver.find_element(By.CSS_SELECTOR, "button.tableBtn.listDrop.ng-scope")
-        save_button.click()
-        time.sleep(2)  # Allow time for the download to start
-        # Wait for the CSV button to be clickable and then click it
-        csv_button = driver.find_element(By.LINK_TEXT, "CSV")
-        csv_button.click()
+            save_button = driver.find_element(By.CSS_SELECTOR, "button.tableBtn.listDrop.ng-scope")
+            save_button.click()
+            time.sleep(2)  # Allow time for the download to start
+            # Wait for the CSV button to be clickable and then click it
+            csv_button = driver.find_element(By.LINK_TEXT, "CSV")
+            csv_button.click()
 
-        time.sleep(2)  # Allow time for the download to start
+            time.sleep(2)  # Allow time for the download to start
     except Exception as e:
-        print(f"Failed to click the save button on {pdf_link}: {e}")
+            print(f"Failed to click the save button on {pdf_link}: {e}")
 
-# Close the browser
-driver.quit()"""
-import time
-symbols_list = []
+    # Close the browser
+    driver.quit()
 
-for id in pdf_links:
-    link = fr"https://market.tase.co.il/en/market_data/company/{id}/about"
-    driver.get(link)
-
-    # Wait for the page to load the PDF
-    time.sleep(0.5)  # Adjust this based on your internet speed
-
-    # Locate the save button and click it
-    try:
-        symb = driver.find_elements(By.CSS_SELECTOR, "td.ColW_5")
-        symbols_list.append(fr"{symb[1].text}.TA")
-        print(fr"{symb[1].text}.TA")
-    except Exception as e:
-        print(f"Failed to click the save button on {link}: {e}")
-
-# Close the browser
-driver.quit()
+download_pdf("1829")
 # Creating a DataFrame
-df = pd.DataFrame({
+'''df = pd.DataFrame({
     'PDF Links': pdf_links,
     'Symbols': symbols_list
 })
 
 # Saving the DataFrame to an Excel file
-with pd.ExcelWriter('symbols.xlsx') as writer:
-    df.to_excel(writer, sheet_name='IDs and Symbols', index=False)
+with pd.ExcelWriter('Presentation/SYMBOLS.xlsx') as writer:
+    df.to_excel(writer, sheet_name='IDs and Symbols', index=False)'''

@@ -3,30 +3,8 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.preprocessing import StandardScaler
 
-
-
-
-def remove_top_and_bottom(df, column, n=20):
-    """
-    Removes the top `n` and bottom `n` rows based on the specified column.
-
-    Parameters:
-    - df (pd.DataFrame): The input DataFrame.
-    - column (str): The column name on which to sort and filter.
-    - n (int): Number of rows to remove from the top and bottom.
-
-    Returns:
-    - pd.DataFrame: The filtered DataFrame.
-    """
-    # Sort the DataFrame by the specified column in ascending order
-    df_sorted = df.sort_values(by=column, ascending=True)
-
-    # Remove the top `n` rows and bottom `n` rows
-    df_filtered = df_sorted.iloc[n:-n]
-
-    return df_filtered
 
 def create_lag_features(df, target_col, lag=1, rolling_windows=None):
     """Adds lag, rolling, and difference features for the target column."""
@@ -86,28 +64,16 @@ def check(df):
     r2 = r2_score(y_test, y_pred)
     # חישוב ממוצע הערכים האמיתיים
     mean_actual = np.mean(np.abs(y_test))
-    # Initialize MinMaxScaler
 
-    errors = y_test - y_pred  # Original space error
-    errors_scaled=np.abs((y_test-y_pred))
-    # Calculate standard deviation and median
+    # חישוב סטיית התקן של השגיאות
+    errors = y_test - y_pred
     std_deviation = np.std(errors)
-    median_scaled = np.median(errors_scaled)
 
-    mean_actual = np.mean(np.abs(y_test))
-
-    # Normalized standard deviation
+    # נירמול סטיית התקן
     normalized_std = std_deviation / mean_actual
 
-    # Print results
-    print(f"Standard Deviation (Original Space): {std_deviation:.6f}")
-    print(f"Normalized Standard Deviation: {normalized_std:.6f}")
-    print(f"Median (Scaled Space): {median_scaled:.2f}")
-    plt.hist(errors_scaled, bins=50, edgecolor='k')
-    plt.title("Distribution of Scaled Errors")
-    plt.xlabel("Scaled Error")
-    plt.ylabel("Frequency")
-    plt.show()
+    print(f"סטיית התקן: {std_deviation}")
+    print(f"סטיית התקן המנורמלת: {normalized_std}")
     # חישוב ההבדל באחוזים בין הערכים האמיתיים ל-Total Revenue ב-X
     # חישוב אחוז ההבדל בין הערכים האמיתיים ל-Total Revenue
     comparison_results = compare_sales_changes(X, y_test, y_pred)
@@ -163,26 +129,26 @@ def clean_dataframe(df):
 def prepare_Data(file_path, excel_file, output_file):
     """Prepares the data for prediction and evaluation."""
     # Read and process data
-    df = pd.read_excel(excel_file)
+    df = pd.read_csv(file_path)
     df_excel = pd.read_excel(excel_file)
-    model = None
 
-    # Filter data for 2021 and 2022
-    df_2021 = df[df['Year'] == 2021].drop(['Year'], axis=1)
-    df_2021.rename(columns={'Total Revenue': 'Total Revenue_2021'}, inplace=True)
+    # Filter and merge data
+    df_2022 = df[df['Year'] == 2022].drop(['Year'], axis=1)
+    df_2022.rename(columns={'Total Revenue': 'Total Revenue_2022'}, inplace=True)
+    df_2023 = df_excel[df_excel['Year'] == 2023][['Symbol', 'Total Revenue']]
+    df_combined = pd.merge(df_2022, df_2023, on='Symbol', how='left', suffixes=('', '_2022'))
 
-    df_2022 = df_excel[df_excel['Year'] == 2022][['Symbol', 'Total Revenue']]
-    print(df_2022)
-    # Merge datasets on 'Symbol' to align data
-    df_combined = pd.merge(df_2021, df_2022, on='Symbol')
-    print(df_combined)
+    # Clean and preprocess data
     df_combined = clean_dataframe(df_combined)
 
+    # Add lag for Total Revenue (last year's revenue as a predictor)
+    df_combined['Total Revenue_lag_1'] = df_combined['Total Revenue']
+    df_combined.rename(columns={'Total Revenue_2022': 'Total Revenue'}, inplace=True)
 
     # Add other lag and engineered features
     df_combined = create_lag_features(df_combined, target_col='Total Revenue', lag=3, rolling_windows=[3, 6])
     df_combined.dropna(inplace=True)
-   # filtered_df = remove_top_and_bottom(df, column="Total Revenue", n=20)
+
     # Predict and evaluate
     df_predicted = check(df_combined)
 
@@ -226,7 +192,7 @@ def plot_percentage_gap(df_predicted):
 
 # File paths
 file_path = '../Net income Prediction/financial_comparisons.csv'
-excel_file = '../Net income Prediction/combined_financial_data_all_stocks.xlsx'
+excel_file = '../Net income Prediction/financial_ratios_with_altman.xlsx'
 output_file = '../Net income Prediction/financial_predictions_with_memory.csv'
 
 # Run the pipeline
