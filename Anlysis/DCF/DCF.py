@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 
 # Assumptions for the DCF calculation
 initial_revenue = 1000e6  # Starting revenue in dollars
-growth_rate = 0.05  # 5% annual revenue growth rate
-discount_rate = 0.1  # 10% discount rate (WACC)
+growth_rate = 0.01 # 5% annual revenue growth rate
+discount_rate = 0.1 # 10% discount rate (WACC)
 terminal_growth_rate = 0.02  # 2% terminal growth rate
 projection_years = 5  # Projecting for 5 years
 
