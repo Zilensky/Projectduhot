@@ -69,7 +69,7 @@ def calculate_financial_ratios(file_path):
     df[['Year', 'Altman Z-Score', 'Altman Status']]
 
     # שמירת התוצאות בקובץ חדש
-    output_file = 'financial_ratios_with_altman.xlsx'
+    output_file = '../../AI/Net income Prediction/financial_ratios_with_altman.xlsx'
     df.to_excel(output_file, index=False)
     print(f"החישובים הושלמו והתוצאות נשמרו בקובץ '{output_file}'")
 

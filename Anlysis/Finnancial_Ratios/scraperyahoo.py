@@ -157,7 +157,7 @@ def calc_Ratios_with_growth(stock, symbol):
     }
 
 if __name__ == '__main__':
-    # Step 1: Load the symbols from the Excel file into a list
+   r''' # Step 1: Load the symbols from the Excel file into a list
  file_path = r'C:\Users\yairb\PycharmProjects\Projectduhot\SYMBOLS.xlsx'
  df = pd.read_excel(file_path)
  symbols = df['symb'].tolist()  # Assuming the column is named 'symb'
@@ -182,7 +182,10 @@ if __name__ == '__main__':
  print(f"Financial ratios saved to {output_file_path}")
 
 
-
+'''
+   stock = yf.Ticker("EVGN.TA")
+   ratios = calc_Ratios_with_growth(stock, symbol)
+   print(ratios)
 
 
 
